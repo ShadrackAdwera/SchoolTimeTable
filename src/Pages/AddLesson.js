@@ -69,6 +69,31 @@ const AddLesson = () => {
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [message, setMessage] = useState('');
 
+  const addEvent = () => {
+    setIsLoading(true);
+    const event = {
+      summary: formState.unitTitle,
+      location: formState.unitLocation,
+      description: formState.unitName,
+      start: {
+        dateTime: formState.unitStartTime + ':00+03:00',
+        timeZone: 'Africa/Nairobi',
+      },
+      end: {
+        dateTime: formState.unitEndTime + ':00+03:00',
+        timeZone: 'Africa/Nairobi',
+      },
+      recurrence: ['RRULE:FREQ=WEEKLY;UNTIL=20201210T000000Z'],
+      attendees: [{ email: formState.unitLecturer }],
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: 'email', minutes: 24 * 60 },
+          { method: 'popup', minutes: 10 },
+        ],
+      },
+    };
+
   return (
     <div>
     <Modal
