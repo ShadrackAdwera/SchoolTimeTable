@@ -43,6 +43,25 @@ const useStyles = makeStyles((theme) => ({
     unitEndTime: '',
   };
 
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'SET_UNIT_TITLE':
+        return { ...state, unitTitle: action.value };
+      case 'SET_UNIT_NAME':
+        return { ...state, unitName: action.value };
+      case 'SET_UNIT_LOCATION':
+        return { ...state, unitLocation: action.value };
+      case 'SET_UNIT_LECTURER':
+        return { ...state, unitLecturer: action.value };
+      case 'SET_UNIT_START_TIME':
+        return { ...state, unitStartTime: action.value };
+      case 'SET_UNIT_END_TIME':
+        return { ...state, unitEndTime: action.value };
+      default:
+        return state;
+    }
+  };
+
 const AddLesson = () => {
 
 };
