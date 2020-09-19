@@ -31,10 +31,10 @@ const Home = (props) => {
     const initClient = () => {
       gapi.client
         .init({
-          apiKey: API_KEY,
-          clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES,
+          apiKey: process.env.REACT_APP_API_KEY,
+          clientId: process.env.REACT_APP_CLIENT_ID,
+          discoveryDocs: process.env.REACT_APP_DISCOVERY_DOCS,
+          scope: process.env.REACT_APP_SCOPES,
         })
         .then(
           function () {
