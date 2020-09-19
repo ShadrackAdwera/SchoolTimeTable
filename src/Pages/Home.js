@@ -6,8 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import LockIcon from '@material-ui/icons/Lock';
 import { Grid } from '@material-ui/core';
 import Header from '../Header';
-import Home from '../../Pages/Home/Home';
-import AddLesson from '../../Pages/AddEvent/AddEvent';
+import Card from '../Components/Card/Card';
+import AddLesson from '../Pages/AddLesson';
 import './Login.css';
 
 const Home = (props) => {
@@ -76,6 +76,77 @@ const Home = (props) => {
   const handleSignoutClick = () => {
     gapi.auth2.getAuthInstance().signOut();
   }
+
+  return !isUserSignedIn ? (
+    <div className="centered">
+      <Header />
+      <br />
+      <br />
+      <Button
+        style={{
+          background: 'green',
+          color: 'white',
+          width: '60%',
+          fontWeight: 'bold',
+        }}
+        ref={signUpRef}
+        onClick={handleAuthClick}
+        startIcon={<LockIcon />}
+      >
+        Sign In
+      </Button>
+    </div>
+  ) : (
+    <div>
+      <div className="card-list">
+        {userCalender.map((event) => (
+          <Card
+            key={event.id}
+            day={moment().format('LLL')}
+            summary={event.summary}
+            description={event.description}
+            location={event.location}
+            startTime={moment(event.start.dateTime).calendar()}
+            endTime={moment(event.end.dateTime).format('LT')}
+            status={event.status}
+            hangOutsLink={event.hangoutLink || '/'}
+          />
+        ))}
+      </div>
+      <div style={{ textAlign: 'center', marginTop: '5%' }}>
+        <Grid>
+          <Button
+            style={{
+              background: 'red',
+              color: 'white',
+              marginLeft: '2%',
+              fontWeight: 'bold',
+            }}
+            ref={signOutRef}
+            onClick={handleSignoutClick}
+            startIcon={<LockIcon />}
+          >
+            Sign Out
+          </Button>
+          <Button
+            style={{
+              background: 'green',
+              color: 'white',
+              marginLeft: '2%',
+              fontWeight: 'bold',
+            }}
+            onClick={() => setOpenModal(true)}
+            startIcon={<AddIcon />}
+          >
+            Add Lesson
+          </Button>
+          <AddLesson open={openModal} close={()=>setOpenModal(false)}/>
+        </Grid>
+        <br />
+        <h3>Copyright 2020, TimetableApp</h3>
+      </div>
+    </div>
+  );
 
 
 };
