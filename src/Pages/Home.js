@@ -11,6 +11,11 @@ import AddLesson from '../../Pages/AddEvent/AddEvent'
 import './Login.css';
 
 const Home = (props) => {
+    const [isUserSignedIn, setIsUserSignedIn] = useState(false);
+  const [userCalender, setUserCalender] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const signUpRef = useRef();
+  const signOutRef = useRef();
 
 }
 
