@@ -62,7 +62,7 @@ const reducer = (state, action) => {
   }
 };
 
-const AddLesson = () => {
+const AddLesson = (props) => {
   const classes = useStyles();
   const [formState, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,6 +92,23 @@ const AddLesson = () => {
           { method: 'popup', minutes: 10 },
         ],
       },
+    };
+
+    const request = gapi.client.calendar.events.insert({
+        calendarId: 'primary',
+        resource: event,
+      });
+      request.execute((event) => {
+        if (event.code === 400) {
+          setIsLoading(false);
+          setOpenSnackBar(true);
+          setMessage('Lesson Schedule failed! Try again');
+        } else {
+          setOpenSnackBar(true);
+          setIsLoading(false);
+          setMessage('Lesson scheduled!');
+        }
+      });
     };
 
   return (
