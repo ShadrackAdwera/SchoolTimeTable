@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gapi } from 'gapi-script';
-import moment from 'moment';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
-import LockIcon from '@material-ui/icons/Lock';
-import { Grid } from '@material-ui/core';
-import Header from '../Header';
-import Card from '../Components/Card/Card';
-import AddLesson from '../Pages/AddLesson';
-import './Login.css';
+import Header from '../Components/UIElements/Header';
+import AddLesson from './AddLessons/AddLesson';
+import DisplayLessons from './DisplayLessons/DisplayLessons';
+import './Home.css';
+import Footer from '../Components/UIElements/Footer';
+
+const DISCOVERY_DOCS = [
+  'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+];
+const SCOPES = 'https://www.googleapis.com/auth/calendar';
 
 const Home = (props) => {
   const [isUserSignedIn, setIsUserSignedIn] = useState(false);
@@ -33,8 +34,8 @@ const Home = (props) => {
         .init({
           apiKey: process.env.REACT_APP_API_KEY,
           clientId: process.env.REACT_APP_CLIENT_ID,
-          discoveryDocs: process.env.REACT_APP_DISCOVERY_DOCS,
-          scope: process.env.REACT_APP_SCOPES,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES,
         })
         .then(
           function () {
@@ -71,84 +72,24 @@ const Home = (props) => {
 
   const handleAuthClick = () => {
     gapi.auth2.getAuthInstance().signIn();
-  }
+  };
 
   const handleSignoutClick = () => {
     gapi.auth2.getAuthInstance().signOut();
-  }
+  };
 
   return !isUserSignedIn ? (
-    <div className="centered">
-      <Header />
-      <br />
-      <br />
-      <Button
-        style={{
-          background: 'green',
-          color: 'white',
-          width: '60%',
-          fontWeight: 'bold',
-        }}
-        ref={signUpRef}
-        onClick={handleAuthClick}
-        startIcon={<LockIcon />}
-      >
-        Sign In
-      </Button>
-    </div>
+    <Header cref={signUpRef} clicked={handleAuthClick} />
   ) : (
-    <div>
-      <div className="card-list">
-        {userCalender.map((event) => (
-          <Card
-            key={event.id}
-            day={moment().format('LLL')}
-            summary={event.summary}
-            description={event.description}
-            location={event.location}
-            startTime={moment(event.start.dateTime).calendar()}
-            endTime={moment(event.end.dateTime).format('LT')}
-            status={event.status}
-            hangOutsLink={event.hangoutLink || '/'}
-          />
-        ))}
-      </div>
-      <div style={{ textAlign: 'center', marginTop: '5%' }}>
-        <Grid>
-          <Button
-            style={{
-              background: 'red',
-              color: 'white',
-              marginLeft: '2%',
-              fontWeight: 'bold',
-            }}
-            ref={signOutRef}
-            onClick={handleSignoutClick}
-            startIcon={<LockIcon />}
-          >
-            Sign Out
-          </Button>
-          <Button
-            style={{
-              background: 'green',
-              color: 'white',
-              marginLeft: '2%',
-              fontWeight: 'bold',
-            }}
-            onClick={() => setOpenModal(true)}
-            startIcon={<AddIcon />}
-          >
-            Add Lesson
-          </Button>
-          <AddLesson open={openModal} close={()=>setOpenModal(false)}/>
-        </Grid>
-        <br />
-        <h3>Copyright 2020, TimetableApp</h3>
-      </div>
-    </div>
+    <React.Fragment>
+        <DisplayLessons calender={userCalender} />
+      <AddLesson
+        open={openModal}
+        close={() => setOpenModal(false)}
+      />
+      <Footer cref={signOutRef} clicked={handleSignoutClick} openModal={() => setOpenModal(true)}/>
+    </React.Fragment>
   );
-
-
 };
 
 export default Home;

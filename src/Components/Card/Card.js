@@ -1,6 +1,6 @@
 import React from 'react';
 import ta from '../../taf.png';
-import './Home.css';
+import './Card.css';
 
 const Card = (props) => {
   return (
