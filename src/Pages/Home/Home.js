@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gapi } from 'gapi-script';
-import Header from '../Components/UIElements/Header';
-import AddLesson from './AddLessons/AddLesson';
-import DisplayLessons from './DisplayLessons/DisplayLessons';
+import Header from '../../Components/UIElements/Header';
+import AddLesson from '../AddLessons/AddLesson';
+import DisplayLessons from '../DisplayLessons/DisplayLessons';
 import './Home.css';
-import Footer from '../Components/UIElements/Footer';
+import Footer from '../../Components/UIElements/Footer';
 
 const DISCOVERY_DOCS = [
   'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
@@ -64,7 +64,6 @@ const Home = (props) => {
         })
         .then(function (response) {
           setUserCalender(response.result.items);
-          console.log(response.result.items);
         })
         .catch((error) => console.log(error));
     };
