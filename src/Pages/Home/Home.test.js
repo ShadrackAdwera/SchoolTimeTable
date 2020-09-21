@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import Header from '../../Components/UIElements/Header';
 //import Home from './Home'
 
-jest.mock('axios')
+jest.mock('axios') 
 
 describe('Home', () => {
   test('renders content based on user auth status', () => {
