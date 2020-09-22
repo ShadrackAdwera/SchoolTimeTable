@@ -13,6 +13,7 @@ return <div style={{ textAlign: 'center', marginTop: '5%' }}>
       marginLeft: '2%',
       fontWeight: 'bold',
     }}
+    className="sign-out"
     ref={props.cref}
     onClick={props.clicked}
     startIcon={<LockIcon />}
@@ -26,6 +27,7 @@ return <div style={{ textAlign: 'center', marginTop: '5%' }}>
       marginLeft: '2%',
       fontWeight: 'bold',
     }}
+    className="add-lesson"
     onClick={props.openModal}
     startIcon={<AddIcon />}
   >

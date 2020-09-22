@@ -8,7 +8,6 @@ const DisplayLessons = (props) => {
         {props.calender.map((event) => (
           <Card
             key={event.id}
-            day={moment().format('LLL')}
             summary={event.summary}
             description={event.description}
             location={event.location}

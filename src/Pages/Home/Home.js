@@ -80,14 +80,14 @@ const Home = (props) => {
   return !isUserSignedIn ? (
     <Header cref={signUpRef} clicked={handleAuthClick} />
   ) : (
-    <React.Fragment>
+    <div data-testid="homepage">
         <DisplayLessons calender={userCalender} />
       <AddLesson
         open={openModal}
         close={() => setOpenModal(false)}
       />
       <Footer cref={signOutRef} clicked={handleSignoutClick} openModal={() => setOpenModal(true)}/>
-    </React.Fragment>
+    </div>
   );
 };
 

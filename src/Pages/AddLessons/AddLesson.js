@@ -129,7 +129,7 @@ const AddLesson = (props) => {
         <Fade in={props.open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Schedule Lesson</h2>
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={12} className='add-lesson'>
               <FormControl className={classes.formControl}>
                 <InputLabel id="select-label">Unit Title</InputLabel>
                 <Select

@@ -19,6 +19,7 @@ const Header = (props) => {
           width: '60%',
           fontWeight: 'bold',
         }}
+        className='signin-button'
         ref={props.cref}
         onClick={props.clicked}
         startIcon={<LockIcon />}
